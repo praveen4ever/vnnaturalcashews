@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaithiyanathan Cashews</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Times+New+Roman:wght@700&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eaf7ea;
+            color: #333;
+        }
+        header {
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header img {
+            height: 80px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        nav {
+            margin: 0;
+            padding: 10px;
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffeb3b;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .slider {
+            position: relative;
+            width: 100%;
+            max-height: 600px;
+            overflow: hidden;
+        }
+        .slider img {
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+        .slider img.active {
+            display: block;
+        }
+        .indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+        }
+        .indicators div {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .indicators div.active {
+            background-color: rgba(255, 255, 255, 1);
+        }
+        .content {
+            padding: 20px;
+        }
+        .info-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin: 10px;
+            font-size: 1.1em;
+        }
+        .info-item i {
+            font-size: 1.5em;
+            color: #4caf50;
+            margin-right: 10px;
+        }
+        .info-item span {
+            background: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-weight: bold;
+        }
+        .contact-container {
+            background-color: #f1f1f1;
+            padding: 40px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .contact-container h2 {
+            grid-column: span 2;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2e7d32;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .contact-item i {
+            font-size: 24px;
+            color: #4caf50;
+            background: #eaf7ea;
+            padding: 15px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .contact-item a, .contact-item span {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contact-item a:hover, .contact-item span:hover {
+            color: #2e7d32;
+        }
+        .contact-item.address span {
+            font-weight: normal;
+        }
+        .contact-item.address span.bold {
+            font-weight: bold;
+        }
+        .contact-item.address {
+            grid-column: span 2;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .product-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+            width: 350px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .product-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .product-item:hover img {
+            transform: scale(1.1);
+        }
+        .product-title {
+            font-weight: bold;
+            color: green;
+            text-align: center;
+            margin-top: 10px;
+        }
+        footer {
+            background-color: #2e7d32;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer .social-icons {
+            margin: 10px 0;
+        }
+        footer .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5em;
+            transition: color 0.3s;
+        }
+        footer .social-icons a:hover {
+            color: #ffeb3b;
+        }
+        footer .fssai-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        footer .fssai-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .highlight {
+            background-color: #4caf50;
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .styled-paragraph {
+            background: #f7f7f7;
+            padding: 15px;
+            border-left: 5px solid #4caf50;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div style="display: flex; align-items: center;">
+            <img src="assets/images/LOGO.jpeg" alt="Vaithiyanathan Cashews Logo">
+            <h1>&nbsp;Vaithiyanathan<br>&nbsp;Cashews</h1>
+        </div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#products">Products</a>
+            <a href="#contact">Contact Us</a>
+        </nav>
+    </header>
+    <div class="slider">
+        <img src="assets/images/slider/ss1.jpg" alt="Cashew Image 1" class="active">
+        <img src="assets/images/slider/ss2.jpg" alt="Cashew Image 2">
+        <img src="assets/images/slider/ss3.jpg" alt="Cashew Image 3">
+        <img src="assets/images/slider/ss4.jpg" alt="Cashew Image 4">
+        <div class="indicators">
+            <div class="active" data-index="0"></div>
+            <div data-index="1"></div>
+            <div data-index="2"></div>
+            <div data-index="3"></div>
+        </div>
+    </div>
+    <div class="content container" id="home">
+        <h2>Welcome to Vaithiyanathan Cashews</h2>
+        <div class="info-container">
+            <div class="info-item">
+                <i class="fas fa-id-badge"></i>
+                <span>GSTIN: 33BQZPB8647L1Z2</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-clipboard-check"></i>
+                <span>FSSAI REG NO: 22421029000433</span>
+            </div>
+        </div>
+        <p class="styled-paragraph"><b>Enjoy our superior quality cashew kernels, meticulously sourced for exceptional taste and nutritional value. Perfect for snacking, cooking, and baking.</b></p>
+    </div>
+    <div class="content container" id="about">
+        <h2>About Us</h2>
+        <p class="styled-paragraph">Welcome to Vaithiyanathan Cashews, the leading destination for superior quality cashew nuts. Leveraging over <span class="highlight">15 years of extensive experience</span> in the industry, we pride ourselves on our ability to provide an exceptional range of both imported and locally sourced cashew products. Our commitment to excellence ensures that we deliver only the finest cashew kernels to our discerning clientele across the globe. Whether you are seeking the richness of premium imports or the authenticity of local varieties, Vaithiyanathan Cashews is dedicated to meeting your needs with unparalleled quality and service.</p>
+
+        <p class="styled-paragraph">At Vaithiyanathan Cashews, we understand that quality is paramount. This is why we meticulously source our cashew nuts from trusted growers and processors who share our commitment to excellence. Our rigorous selection process ensures that every cashew nut we offer is of the highest quality, delivering a delicious and satisfying experience with every bite. Our cashews are known for their <span class="highlight">exceptional taste, crisp texture, and rich nutritional value</span>, making them a perfect choice for snacking, cooking, and baking.</p>
+
+        <p class="styled-paragraph">Our product range is diverse and caters to a wide variety of tastes and preferences. From whole cashews to processed varieties, we offer a selection that includes W180, W210, W240, W320, W400, Wmix, Jh, Lwp, Sp, BB, Buds, and SW. Each of these grades represents a different size and quality of cashew nut, allowing us to cater to different needs and preferences. Whether you prefer the larger, more premium nuts or the smaller, more economical options, we have something for everyone.</p>
+
+        <p class="styled-paragraph">One of the key aspects that sets Vaithiyanathan Cashews apart is our commitment to customer satisfaction. We believe that our customers deserve the best, and we strive to exceed their expectations with every order. Our customer-focused approach ensures that we not only provide top-quality products but also offer exceptional service. From the moment you place your order to the time it arrives at your doorstep, we are dedicated to ensuring a smooth and pleasant experience.</p>
+
+        <p class="styled-paragraph">In addition to our focus on quality and customer satisfaction, we are also committed to sustainability and ethical practices. We recognize the importance of environmental stewardship and strive to minimize our impact on the planet. Our suppliers are carefully chosen for their adherence to sustainable farming practices, ensuring that our products are not only good for you but also good for the environment. By choosing Vaithiyanathan Cashews, you can enjoy your favorite nuts with the peace of mind that comes from knowing you are supporting responsible and ethical practices.</p>
+
+        <p class="styled-paragraph">Our global reach allows us to serve customers from all corners of the world. Whether you are in the United States, Europe, Asia, or anywhere else, you can enjoy the premium quality of Vaithiyanathan Cashews. Our efficient logistics and shipping networks ensure that our products reach you in perfect condition, no matter where you are. We take great care in packaging our cashews to preserve their freshness and flavor, so you can enjoy them as if they were just harvested.</p>
+
+        <p class="styled-paragraph">Vaithiyanathan Cashews is more than just a supplier of cashew nuts; we are a partner in your journey towards a healthier and more enjoyable lifestyle. Our cashews are packed with essential nutrients, including healthy fats, proteins, vitamins, and minerals, making them an excellent addition to your diet. Whether you are looking to boost your energy levels, support your immune system, or simply enjoy a delicious snack, our cashews are the perfect choice.</p>
+
+        <p class="styled-paragraph">We also take pride in our transparent and honest business practices. At Vaithiyanathan Cashews, we believe in building trust with our customers by being open and honest about our processes and products. We provide detailed information about the origin of our cashews, our sourcing practices, and our commitment to quality. This transparency allows you to make informed choices and feel confident in your purchase.</p>
+
+        <p class="styled-paragraph">Our dedication to innovation and continuous improvement ensures that we stay ahead of the curve in the cashew industry. We constantly seek out new and better ways to enhance our products and services, so we can continue to provide the best possible experience for our customers. From adopting the latest technologies in processing and packaging to exploring new markets and product offerings, we are always looking for ways to grow and improve.</p>
+
+        <p class="styled-paragraph">At Vaithiyanathan Cashews, we value the relationships we build with our customers. We believe that our success is built on the trust and loyalty of our clients, and we are committed to nurturing these relationships through exceptional service and quality products. Whether you are a long-time customer or a first-time buyer, we appreciate your support and look forward to serving you for many years to come.</p>
+
+        <p class="styled-paragraph">We invite you to explore our online store and discover the excellence of Vaithiyanathan Cashews for yourself. Browse our selection of premium cashew nuts, learn more about our commitment to quality and sustainability, and place your order with confidence. If you have any questions or need assistance, our friendly and knowledgeable team is here to help. Contact us today to discuss how we can meet your cashew needs and provide you with the best possible experience.</p>
+
+        <p class="styled-paragraph">Thank you for choosing Vaithiyanathan Cashews. We are honored to be your trusted source for high-quality cashew nuts and look forward to serving you with dedication and excellence. Join our community of satisfied customers and embrace the pleasure of premium cashews. Follow us on social media to stay updated on promotions and cashew-related insights, and be a part of our journey towards a healthier and more enjoyable lifestyle.</p>
+    </div>
+    <div class="content container" id="products">
+        <h2>Our Products</h2>
+        <div class="products-grid">
+            <div>
+                <div class="product-item">
+                    <img src="assets/images/products/w180.jpg" alt="W180">
+                </div>
+                <div class="product-title">W180</div>
+            </div>
+            <div>
+                <div class="product-item">
+                    <img src="assets/images/products/w210.jpg" alt="W210">
+                </div>
+                <div class="product-title">W210</div>
+            </div>
+            <div>
+                <div class="product-item">
+                    <img src="assets/images/products/w240.jpg" alt="W240">
+                </div>
+                <div class="product-title">W240</div>
+            </div>
+            <div>
+                <div class="product-item">
+                    <img src="assets/images/products/w320.jpg" alt="W320">
+                </div>
+                <div class="product-title">W320</div>
+            </div>
+            <div>
+                <div class="product-item">
+                    <img src="assets/images/products/w400.jpg" alt="W400">
+                </div>
+                <div class="product-title">W400</div>
+            </div>
+            <div>
+                <div class="product-item">
+                    <img src="assets/images/products/wmix.jpg" alt="Wmix">
+                </div>
+                <div class="product-title">Wmix</div>
+            </div>
+            <div>
+                <div class="product-item">
+                    <img src="assets/images/products/jh.jpg" alt="Jh">
+                </div>
+                <div class="product-title">Jh</div>
+            </div>
+            <div>
+                <div class="product-item">
+                    <img src="assets/images/products/lwp.jpg" alt="Lwp">
+                </div>
+                <div class="product-title">Lwp</div>
+            </div>
+            <div>
+                <div class="product-item">
+                    <img src="assets/images/products/sp.jpg" alt="Sp">
+                </div>
+                <div class="product-title">Sp</div>
+            </div>
+            <div>
+                <div class="product-item">
+                    <img src="assets/images/products/bb.jpg" alt="BB">
+                </div>
+                <div class="product-title">BB</div>
+            </div>
+            <div>
+                <div class="product-item">
+                    <img src="assets/images/products/buds.jpg" alt="Buds">
+                </div>
+                <div class="product-title">Buds</div>
+            </div>
+            <div>
+                <div class="product-item">
+                    <img src="assets/images/products/sw.jpg" alt="SW">
+                </div>
+                <div class="product-title">SW</div>
+            </div>
+        </div>
+    </div>
+    <div class="content contact-container" id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-item address">
+            <i class="fas fa-map-marker-alt"></i>
+            <span class="bold">Address: </span><span>1161, South Street, Athirikuppam Village, Parperiyankuppam Post, Panruti Taluk, Cuddalore District, Tamilnadu, India, Pin – 607803.</span>
+        </div>
+        <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <span class="bold">WhatsApp: </span><span>8667295372, 6382660574</span>
+        </div>
+        <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:vnnaturalcashews@gmail.com">mail: vnnaturalcashews@gmail.com</a>
+        </div>
+        <div class="contact-item">
+            <i class="fas fa-user"></i>
+            <span>Founder: Vaithiyanathan K</span>
+        </div>
+        <div class="contact-item">
+            <i class="fas fa-user-tie"></i>
+            <span>Managing Director: Lakshmipriya Balamurugan BE</span>
+        </div>
+    </div>
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/vnnaturalcashews?mibextid=ZbWKwL"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/vn_cashews?igsh=YnlzNXJwcWh1dWVo"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="fssai-logo">
+            <img src="assets/images/fssai.jpg" alt="FSSAI Logo">
+        </div>
+        <p>FSSAI Registered</p>
+        <p>&copy; 2023 Vaithiyanathan Cashews. All rights reserved.</p>
+    </footer>
+    <script>
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.slider img');
+        const indicators = document.querySelectorAll('.indicators div');
+        const totalImages = images.length;
+
+        function showImage(index) {
+            images[currentIndex].classList.remove('active');
+            indicators[currentIndex].classList.remove('active');
+            currentIndex = index;
+            images[currentIndex].classList.add('active');
+            indicators[currentIndex].classList.add('active');
+        }
+
+        function showNextImage() {
+            let nextIndex = (currentIndex + 1) % totalImages;
+            showImage(nextIndex);
+        }
+
+        indicators.forEach(indicator => {
+            indicator.addEventListener('click', () => {
+                let index = parseInt(indicator.getAttribute('data-index'));
+                showImage(index);
+            });
+        });
+
+        setInterval(showNextImage, 3000);
+    </script>
+</body>
+</html>
